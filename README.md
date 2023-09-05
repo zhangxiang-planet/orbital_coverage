@@ -22,7 +22,7 @@ This tool can be used by simply download (git clone) and execute the orbital_cov
 
 ## Quick examples
 
-1. Student A wishes to investigate the exoplanet Kepler-42 c.
+1. *Student A wishes to investigate the exoplanet Kepler-42 c*.
 
 Although one could attempt to use the tool just with the exoplanet's name, it's essential to provide at least two input arguments: the target name and the field name.
 
@@ -37,3 +37,5 @@ Given this, Student A can execute the command:
 ```
 
 **WARNING**: Exoplanet systems often have alternate names (e.g., Kepler-42 c is also known as KOI-961 c). We strongly advise users to consult the NenuFAR schedule to ensure they're using the correct field names.
+
+2. *Postdoc B would like to investigate the exoplanet ups And e. However, they prefer to use orbital parameters from a specific reference.*
