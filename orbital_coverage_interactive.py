@@ -71,8 +71,8 @@ parser.add_argument('-f', '--field', type=str, required=True,
     help='Field name. Must be the same one used in NenuFAR observations. For example, if field name is TAU_BOO, the code will look for existing observing data directories named with TAU_BOO, while exclude directories with names containing CALIBRATOR.')
 parser.add_argument('-i', '--instrument', type=str, default='NENUFAR', 
     help='Telescope used for observation. Can be LOFAR or NENUFAR. For LOFAR, only BEAMFORM observations for TAU BOO are supported for now. Default NENUFAR.')
-parser.add_argument('-o', '--observation', type=str, default='IMAGING', 
-    help='Type of observations to be found. Can be IMAGING or BEAMFORM. Used to search for existing data in nenufar-nri or nenufar-tf directories. Default IMAGING.')
+parser.add_argument('-o', '--observation', type=str, default='BEAMFORM', 
+    help='Type of observations to be found. Can be IMAGING or BEAMFORM. Used to search for existing data in nenufar-nri or nenufar-tf directories. Default BEAMFORM.')
 parser.add_argument('-b', '--baddata', type=bool, default=True, 
     help='Bad data list. If True, observations given in the bad data list will be excluded. Default True.')
 parser.add_argument('-fmin', '--freqmin', type=float, default=1000, 
