@@ -95,7 +95,7 @@ optional arguments:
 
 ## Usage scenarios
 
-1. ***Student A wishes to investigate the exoplanet Kepler-42 c***.
+### Alice wishes to investigate the exoplanet Kepler-42 c.
 
 Although one could attempt to use the tool just with the exoplanet's name, it's essential to provide at least two input arguments: the target name and the field name.
 
@@ -103,7 +103,7 @@ Although one could attempt to use the tool just with the exoplanet's name, it's 
 
 - **Field Name**: For NenuFAR observations, this is the name utilized during scheduling, which typically corresponds to the star's name. For Kepler-42 c, the field name is **KEPLER_42**. This must be in uppercase due to NenuFAR's naming conventions.
 
-Given this, Student A can execute the command:
+Given this, Alice can execute the command:
 
 ```bash
 ./orbital_coverage_interactive.py -t kepler_42_c -f KEPLER_42
@@ -111,17 +111,62 @@ Given this, Student A can execute the command:
 
 **WARNING**: Exoplanet systems often have alternate names (e.g., Kepler-42 c is also known as KOI-961 c). We strongly advise users to consult the NenuFAR schedule to ensure they're using the correct field names.
 
-2. ***Postdoc B would like to study the exoplanet ups And b. However, they prefer to use orbital parameters from a specific reference.***
+### Brian would like to study the exoplanet ups And b. However, he prefers to use orbital parameters from a specific reference.
 
-Postdoc B could activate the MANUAL mode offered by the tool. The tool operates in two distinct modes:
+Brian could activate the MANUAL mode offered by the tool. The tool operates in two distinct modes:
 
 - **AUTO mode**: Here, the tool automatically queries the NASA exoplanet archive to retrieve the RA/DEC, orbital period and its associated error, and the Time of Conjunction (Transit Midpoint) for a specific exoplanet. Given that NASA sources this data from various references, the tool prioritizes the reference with the smallest error in the orbital period.
 
 - **MANUAL mode**: In this mode, the tool only fetches the RA/DEC from the NASA exoplanet archive, allowing the user to provide the necessary orbital information.
 
-Thus, for Postdoc B to utilize data from their preferred reference, they can input the relevant orbital parameters as follows:
+Thus, for Brian to utilize data from the preferred reference, he can input the relevant orbital parameters as follows:
 
 ```bash
 ./orbital_coverage_interactive.py -t ups_and_b -f UPS_AND -m MANUAL -p 4.617033 -pe 0.000023 -j 2450005.368
 ```
+
+### Carol wishes to schedule imaging observations for the exoplanet HD 189733 b, prioritizing orbital phases not already covered by existing observations.
+
+To identify optimal observation times, Carol aims to capture moments when the exoplanet orbits through phases that haven't been observed. Furthermore, she wants to be considerate and avoid times already reserved by other observers.
+
+Here's how Carol can achieve this:
+
+1. **Obtain the NenuFAR Schedule**: Firstly, Carol needs to download the NenuFAR observing schedule. This can be done through the NenuFAR portal (note: a NenuFAR account is required). Simply navigate and click on **Planning -> Booking -> Current Booking.csv** to download the schedule in a CSV format.
+
+2. **Place the Schedule in the Repository**: After downloading, move the schedule file (e.g., **2023-09-04_booking.csv**) to the main repository directory.
+
+3. **Run the Tool**: Execute the following command to identify available timeslots for the next 30 days, focusing on uncovered orbital phases for HD 189733 b:
+
+```bash
+./orbital_coverage_interactive.py -t hd_189733_b -f HD_189733 -o IMAGING -l -a
+```
+
+The tool allows for further customization. For instance, Carol can modify the **PREDICT**, **ELEVATION**, and **SUN** arguments to adjust the prediction duration, target elevation, and Sun elevation criteria respectively. By default, the tool suggests observation windows where the target elevation exceeds 40 degrees and the Sun's elevation is below -18 degrees (nighttime). Adjust these as needed to fit specific observational requirements.
+
+### David wants to assess the orbital phase coverage of tau Boo b while excluding certain known bad data and avoiding observations at higher frequency bands. 
+
+**Ignoring Known Bad Data**: David can specify which observations to exclude by creating a text file with the start times of the problematic observations. For instance:
+
+```bash
+20190323_013900                                         # Old version of pipeline
+20190326_012700                                         # Old version of pipeline
+20190328_001800                                         # Old version of pipeline
+20190330_011100                                         # Old version of pipeline
+```
+
+This exclusion file should be named following the pattern: **FIELDNAME_exclude.dat** (e.g., **TAU_BOO_exclude.dat**). He can place this file either in the repository's directory or in the designated exclusion directory:
+
+```bash
+/cep/nenufar/nenufar/pro/exoplanets/exclude-from-analysis/
+```
+
+Any observation listed in this file will automatically be disregarded during analysis.
+
+**Frequency Considerations**: For specific frequency requirements, David can leverage the **FREQMIN** argument (currently, only BEAMFORM observations are supported):
+
+```bash
+./orbital_coverage_interactive.py -t tau_boo_b -f TAU_BOO -fmin 18
+```
+
+With this, the tool will consider only those observations with a minimum frequency below 18 MHz.
 
