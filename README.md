@@ -93,9 +93,9 @@ optional arguments:
                         required as input. Default False.
 ```
 
-## Examples
+## Usage scenarios
 
-1. *Student A wishes to investigate the exoplanet Kepler-42 c*.
+1. ***Student A wishes to investigate the exoplanet Kepler-42 c***.
 
 Although one could attempt to use the tool just with the exoplanet's name, it's essential to provide at least two input arguments: the target name and the field name.
 
@@ -111,4 +111,17 @@ Given this, Student A can execute the command:
 
 **WARNING**: Exoplanet systems often have alternate names (e.g., Kepler-42 c is also known as KOI-961 c). We strongly advise users to consult the NenuFAR schedule to ensure they're using the correct field names.
 
-2. *Postdoc B would like to investigate the exoplanet ups And e. However, they prefer to use orbital parameters from a specific reference.*
+2. ***Postdoc B would like to investigate the exoplanet ups And b. However, they prefer to use orbital parameters from a specific reference.***
+
+What Postdoc B can do is to activate the MANUAL mode of the tool. The tool provides two modes of driving (like a car):
+
+AUTO mode: the tool sends a query to NASA exoplanet archive, to get the RA/DEC, orbital period and the error, Time of Conjuction (Transit Midpoint) of a specific exoplanet. NASA provides these data from multiple references; so the tool selects the reference with the smallest error in orbital period.
+
+MANUAL mode: the tool still sends a query to NASA exoplanet archive to get the RA/DEC, but requires the user to input the relavant orbital information.
+
+So what Postdoc B can do is inputing orbital information from their prefered reference:
+
+```bash
+./orbital_coverage_interactive.py -t ups_and_b -f UPS_AND -m MANUAL -p 4.617033 -pe 0.000023 -j 2450005.368
+```
+

@@ -50,14 +50,16 @@ def format_func(x):
     return f"{x:.6f}"
 
 def extract_freq_values(filename):
-    with open(filename, 'r') as f:
-        lines = f.readlines()
+    # Regular expression pattern to match the desired line and extract the numbers
+    pattern = r'Beam\[0\]\.subbandList=\[(\d+)\.\.(\d+)\]'
 
-    for line in lines:
-        if "Frequency (MHz) min,max" in line:
-            parts = line.split(":")
-            freq_min, freq_max = map(float, parts[1].strip().split())
-            return freq_min, freq_max
+    with open(filename, 'r') as file:
+        for line in file:
+            match = re.search(pattern, line)
+            if match:
+                # Return the matched values as integers
+                return int(match.group(1)) * 0.1953125, int(match.group(2)) * 0.1953125
+
     return None, None
 
 
@@ -228,9 +230,9 @@ if args.instrument == "NENUFAR":
                     t_starts.append(convert_to_julian_date(start_date, start_time))
                     t_ends.append(convert_to_julian_date(end_date, end_time))
                 elif obs_mode == 'BEAMFORM':
-                    file_paths = glob.glob(base_path + '/' + dirname + "/L1/*.spectra.txt")
+                    file_paths = glob.glob(base_path + '/' + dirname + "/*.parset")
                     if file_paths == []:
-                        file_paths = glob.glob(base_path + '/' + dirname + "/*.spectra.txt")
+                        file_paths = glob.glob(base_path + '/' + dirname + "/L1/*.parset")
                     file_paths.sort()
                     if file_paths == []:
                         print("No frequency information was found in directory " + base_path + '/' + dirname + ". Please double check.")
