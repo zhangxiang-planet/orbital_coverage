@@ -22,7 +22,7 @@ This tool can be used by simply download (git clone) and execute the orbital_cov
 
 A list of available arguments is given below:
 
-```python
+```bash
 usage: orbital_coverage_interactive.py [-h] -t TARGET -f FIELD [-i INSTRUMENT] [-o OBSERVATION] [-b BADDATA]
                                        [-fmin FREQMIN] [-m MODE] [-p PERIOD] [-pe PERIODERR] [-j JD] [-pre PREDICT]
                                        [-e ELEVATION] [-s SUN] [-l] [-a]
