@@ -49,7 +49,7 @@ def split_observation_into_segments(start, end):
 def format_func(x):
     return f"{x:.6f}"
 
-def extract_freq_values(filename):
+def extract_subband_values(filename):
     # Regular expression pattern to match the desired line and extract the numbers
     pattern = r'Beam\[0\]\.subbandList=\[(\d+)\.\.(\d+)\]'
 
@@ -60,6 +60,18 @@ def extract_freq_values(filename):
                 # Return the matched values as integers
                 return int(match.group(1)) * 0.1953125, int(match.group(2)) * 0.1953125
 
+    return None, None
+
+def extract_freq_values(filename):
+    with open(filename, 'r') as f:
+        lines = f.readlines()
+
+    for line in lines:
+        if "Frequency (MHz) min,max" in line:
+            parts = line.split(":")
+            freq_min, freq_max = map(float, parts[1].strip().split())
+            return freq_min, freq_max
+        
     return None, None
 
 
@@ -234,10 +246,19 @@ if args.instrument == "NENUFAR":
                     if file_paths == []:
                         file_paths = glob.glob(base_path + '/' + dirname + "/L1/*.parset")
                     file_paths.sort()
-                    if file_paths == []:
-                        print("No frequency information was found in directory " + base_path + '/' + dirname + ". Please double check.")
-                        exit(1)
-                    f_min, f_max = extract_freq_values(file_paths[0])
+
+                    # Sometimes the parset file doesn't exist...
+                    if len(file_paths) > 0:
+                        f_min, f_max = extract_subband_values(file_paths[0])
+                    else:
+                        file_paths = glob.glob(base_path + '/' + dirname + "/L1/*.spectra.txt")
+                        if file_paths == []:
+                            file_paths = glob.glob(base_path + '/' + dirname + "/*.spectra.txt")
+                        if file_paths == []:
+                            print("No frequency information was found in directory " + base_path + '/' + dirname + ". Please double check.")
+                            exit(1)
+                        file_paths.sort()
+                        f_min, f_max = extract_freq_values(file_paths[0])                   
 
                     if f_min == None:
                         print("No frequency information was found in file " + file_paths[0] + ". Please double check.")
