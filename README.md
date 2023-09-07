@@ -95,7 +95,7 @@ optional arguments:
 
 ## Usage scenarios
 
-### Alice's Exploration of Exoplanet Kepler-42 c
+### Alice's Exploration of Kepler-42 c
 
 Although one could attempt to use the tool just with the exoplanet's name, it's essential to provide at least two input arguments: the target name and the field name.
 
@@ -111,7 +111,7 @@ Given this, Alice can execute the command:
 
 **NOTE**: Exoplanet systems often have alternate names (e.g., Kepler-42 c is also known as KOI-961 c). We strongly advise users to consult the NenuFAR schedule to ensure they're using the correct field names.
 
-### Brian's Investigation into Exoplanet ups And b with Custom Orbital Parameters
+### Brian's Investigation into ups And b with Custom Orbital Parameters
 
 Brian wishes to rely on specific orbital parameters from a chosen reference. To accommodate this, he can engage the MANUAL mode of the tool. Notably, the tool provides two distinct operational modes:
 
@@ -125,7 +125,7 @@ Thus, for Brian to utilize data from the preferred reference, he can input the r
 ./orbital_coverage_interactive.py -t ups_and_b -f UPS_AND -m MANUAL -p 4.617033 -pe 0.000023 -j 2450005.368
 ```
 
-### Carol's Plan for Imaging Observations of Exoplanet HD 189733 b
+### Carol's Plan for Imaging Observations of HD 189733 b
 
 Carol is keen on scheduling her imaging observations of exoplanet HD 189733 b during uncharted orbital phases. She aims to shed light on areas previously unobserved. Additionally, being considerate of her peers, she wants to ensure she doesn't overlap with slots booked by other researchers.
 
