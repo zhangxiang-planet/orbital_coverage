@@ -173,7 +173,15 @@ best_reference = table[(table['pl_orbpererr1'] - table['pl_orbpererr2']) == smal
 reference = best_reference
 
 target = SkyCoord(reference['ra'], reference['dec'])
-location = EarthLocation(lat=47.3821*u.deg, lon=2.1948*u.deg, height=136.0*u.m)  
+
+if args.instrument == "NENUFAR":
+    location = EarthLocation(lat=47.3821*u.deg, lon=2.1948*u.deg, height=136.0*u.m)  
+elif args.instrument == "LOFAR":
+    location = EarthLocation(lat=52.9060*u.deg, lon=6.8688*u.deg, height=20.0*u.m)
+else:
+    print('Error: Observing instrument can only be NENUFAR or LOFAR.')
+    exit(1)
+    
 p_e = float(reference['pl_orbper'].value[0])
 p_e_error = float(small_err.value / 2)
 jd0 = float(reference['pl_tranmid'].value[0])
