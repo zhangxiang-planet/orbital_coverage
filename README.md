@@ -95,7 +95,7 @@ optional arguments:
 
 ## Usage scenarios
 
-### Alice wishes to investigate the exoplanet Kepler-42 c.
+### Alice's Exploration of Exoplanet Kepler-42 c
 
 Although one could attempt to use the tool just with the exoplanet's name, it's essential to provide at least two input arguments: the target name and the field name.
 
@@ -111,9 +111,9 @@ Given this, Alice can execute the command:
 
 **NOTE**: Exoplanet systems often have alternate names (e.g., Kepler-42 c is also known as KOI-961 c). We strongly advise users to consult the NenuFAR schedule to ensure they're using the correct field names.
 
-### Brian would like to study the exoplanet ups And b. However, he prefers to use orbital parameters from a specific reference.
+### Brian's Investigation into Exoplanet ups And b with Custom Orbital Parameters
 
-Brian could activate the MANUAL mode offered by the tool. The tool operates in two distinct modes:
+Brian wishes to rely on specific orbital parameters from a chosen reference. To accommodate this, he can engage the MANUAL mode of the tool. Notably, the tool provides two distinct operational modes:
 
 - **AUTO mode**: Here, the tool automatically queries the NASA exoplanet archive to retrieve the RA/DEC, orbital period and its associated error, and the Time of Conjunction (Transit Midpoint) for a specific exoplanet. Given that NASA sources this data from various references, the tool prioritizes the reference with the smallest error in the orbital period.
 
@@ -125,9 +125,9 @@ Thus, for Brian to utilize data from the preferred reference, he can input the r
 ./orbital_coverage_interactive.py -t ups_and_b -f UPS_AND -m MANUAL -p 4.617033 -pe 0.000023 -j 2450005.368
 ```
 
-### Carol wishes to schedule imaging observations for the exoplanet HD 189733 b, prioritizing orbital phases not already covered by existing observations.
+### Carol's Plan for Imaging Observations of Exoplanet HD 189733 b
 
-To identify optimal observation times, Carol aims to capture moments when the exoplanet orbits through phases that haven't been observed. Furthermore, she wants to be considerate and avoid times already reserved by other observers.
+Carol is keen on scheduling her imaging observations of exoplanet HD 189733 b during uncharted orbital phases. She aims to shed light on areas previously unobserved. Additionally, being considerate of her peers, she wants to ensure she doesn't overlap with slots booked by other researchers.
 
 Here's how Carol can achieve this:
 
@@ -143,7 +143,9 @@ Here's how Carol can achieve this:
 
 The tool allows for further customization. For instance, Carol can modify the **PREDICT**, **ELEVATION**, and **SUN** arguments to adjust the prediction duration, target elevation, and Sun elevation criteria respectively. By default, the tool suggests observation windows where the target elevation exceeds 40 degrees and the Sun's elevation is below -18 degrees (nighttime). Adjust these as needed to fit specific observational requirements.
 
-### David wants to assess the orbital phase coverage of tau Boo b while excluding certain known bad data and avoiding observations at higher frequency bands. 
+### David's Custom Data Selection for Tau Boo b Research
+
+David is aware that observations from certain nights were not up to par. Additionally, he wishes to exclude observations conducted at specific frequencies outside the scope of his study.
 
 **Ignoring Known Bad Data**: David can specify which observations to exclude by creating a text file with the start times of the problematic observations. For instance:
 
@@ -170,7 +172,7 @@ Any observation listed in this file will automatically be disregarded during ana
 
 With this, the tool will consider only those observations with a minimum frequency below 18 MHz.
 
-### Ethan's Assessment of Tau Boo b's Orbital Phase Coverage Using LOFAR
+### Ethan's Assessment of Tau Boo b's Orbital Phase Coverage with LOFAR
 
 **NOTE**: The tool's compatibility with LOFAR data is currently limited. As of now, it's optimized specifically for Tau Boo. Before analyzing LOFAR data with this tool, please reach out to the developers for guidance.
 
