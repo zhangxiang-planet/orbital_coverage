@@ -307,69 +307,72 @@ t_ends_utc = Time(t_ends, format='jd', scale='utc').iso
 
 f.write("\nThis section gives summary of observations already taken.\nColumns: Observation start time (JD), Observation end time (JD), Orbital Phase at start time, Orbital Phase at end time, Observation start time (UTC), Observation end time (UTC)\n\n")
 
-vfunc = np.vectorize(format_func)
-t_phase_observed = np.vstack((vfunc(t_starts).astype(str), vfunc(t_ends).astype(str), vfunc(phases_observed_starts).astype(str), vfunc(phases_observed_ends).astype(str), t_starts_utc.astype(str), t_ends_utc.astype(str)))
-np.savetxt(f, t_phase_observed.T, fmt='%s', delimiter=', ')
+if t_starts == []:
+    print('No previous observation was found.')
+else:
+    vfunc = np.vectorize(format_func)
+    t_phase_observed = np.vstack((vfunc(t_starts).astype(str), vfunc(t_ends).astype(str), vfunc(phases_observed_starts).astype(str), vfunc(phases_observed_ends).astype(str), t_starts_utc.astype(str), t_ends_utc.astype(str)))
+    np.savetxt(f, t_phase_observed.T, fmt='%s', delimiter=', ')
 
 
-# Splitting observations into segments
-all_segments = []
-for start, end in zip(t_starts, t_ends):
-    segments = split_observation_into_segments(start, end)
-    all_segments.extend(segments)
+    # Splitting observations into segments
+    all_segments = []
+    for start, end in zip(t_starts, t_ends):
+        segments = split_observation_into_segments(start, end)
+        all_segments.extend(segments)
 
-all_segments = np.array(all_segments)
-phases_segments = ((all_segments - jd0) / p_e) % 1
-datetime_segments = Time(all_segments, format='jd', scale='utc')
-datetime_segments = np.array(datetime_segments.to_value('unix', subfmt='float') / 86400)
+    all_segments = np.array(all_segments)
+    phases_segments = ((all_segments - jd0) / p_e) % 1
+    datetime_segments = Time(all_segments, format='jd', scale='utc')
+    datetime_segments = np.array(datetime_segments.to_value('unix', subfmt='float') / 86400)
 
-# Calculate elevations for these segments
-target_altaz_segments = target.transform_to(AltAz(obstime=Time(all_segments, format='jd'), location=location))
-elevations_segments = np.array(target_altaz_segments.alt.deg)
+    # Calculate elevations for these segments
+    target_altaz_segments = target.transform_to(AltAz(obstime=Time(all_segments, format='jd'), location=location))
+    elevations_segments = np.array(target_altaz_segments.alt.deg)
 
-# Plot 1: Orbital Phase Distribution of Observations
-plt.figure(figsize=(8, 6))
-sc = plt.scatter(phases_segments, datetime_segments, c=elevations_segments, marker='o', cmap='viridis')
-plt.colorbar(sc, label='Target Elevation (deg)')
-plt.gca().yaxis.set_major_locator(mdates.AutoDateLocator())
-plt.gca().yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
-plt.xlim(0,1)
-plt.title(target_name + ": Orbital Phase of Past Observations")
-plt.xlabel("Orbital Phase")
-plt.ylabel("Time (UT)")
-plt.tight_layout()
-plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase_collected.png', dpi=300, bbox_inches='tight', facecolor='w')
-plt.close()
+    # Plot 1: Orbital Phase Distribution of Observations
+    plt.figure(figsize=(8, 6))
+    sc = plt.scatter(phases_segments, datetime_segments, c=elevations_segments, marker='o', cmap='viridis')
+    plt.colorbar(sc, label='Target Elevation (deg)')
+    plt.gca().yaxis.set_major_locator(mdates.AutoDateLocator())
+    plt.gca().yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+    plt.xlim(0,1)
+    plt.title(target_name + ": Orbital Phase of Past Observations")
+    plt.xlabel("Orbital Phase")
+    plt.ylabel("Time (UT)")
+    plt.tight_layout()
+    plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase_collected.png', dpi=300, bbox_inches='tight', facecolor='w')
+    plt.close()
 
-#####################################
+    #####################################
 
-# Determine covered phases using histogram
-num_bins = 360
-bin_edges = np.linspace(0, 1, num_bins+1)
-phase_coverage = np.zeros(num_bins)
+    # Determine covered phases using histogram
+    num_bins = 360
+    bin_edges = np.linspace(0, 1, num_bins+1)
+    phase_coverage = np.zeros(num_bins)
 
-for phase_start, phase_end in zip(phases_observed_starts, phases_observed_ends):
-    start_bin = int(phase_start * num_bins)
-    end_bin = int(phase_end * num_bins)
-    
-    if end_bin < start_bin:
-        phase_coverage[start_bin:] += 1
-        phase_coverage[:end_bin+1] += 1
-    else:
-        phase_coverage[start_bin:end_bin+1] += 1
+    for phase_start, phase_end in zip(phases_observed_starts, phases_observed_ends):
+        start_bin = int(phase_start * num_bins)
+        end_bin = int(phase_end * num_bins)
+        
+        if end_bin < start_bin:
+            phase_coverage[start_bin:] += 1
+            phase_coverage[:end_bin+1] += 1
+        else:
+            phase_coverage[start_bin:end_bin+1] += 1
 
-covered_bins = bin_edges[:-1][phase_coverage > 0]
+    covered_bins = bin_edges[:-1][phase_coverage > 0]
 
-# Plot 2: Histogram of Phase Coverage
-plt.figure(figsize=(12, 6))
-plt.bar(bin_edges[:-1], phase_coverage, width=1/num_bins, align='edge')
-plt.xticks(np.arange(0, 1.05, 0.05))
-plt.title(target_name + " Histogram of Phase Coverage")
-plt.xlabel("Orbital Phase")
-plt.ylabel("Number of Observations")
-plt.tight_layout()
-plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_phase_coverage_hist.png', dpi=300, bbox_inches='tight', facecolor='w')
-plt.close()
+    # Plot 2: Histogram of Phase Coverage
+    plt.figure(figsize=(12, 6))
+    plt.bar(bin_edges[:-1], phase_coverage, width=1/num_bins, align='edge')
+    plt.xticks(np.arange(0, 1.05, 0.05))
+    plt.title(target_name + " Histogram of Phase Coverage")
+    plt.xlabel("Orbital Phase")
+    plt.ylabel("Number of Observations")
+    plt.tight_layout()
+    plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_phase_coverage_hist.png', dpi=300, bbox_inches='tight', facecolor='w')
+    plt.close()
 
 ####################################
 
