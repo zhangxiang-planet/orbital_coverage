@@ -421,6 +421,9 @@ altaz_sun = get_sun(times).transform_to(AltAz(obstime=times, location=location))
 altitudes_target = altaz_target.alt.deg
 altitudes_sun = altaz_sun.alt.deg
 
+num_bins = 360
+bin_edges = np.linspace(0, 1, num_bins+1)
+
 phases_bin_indices = phase_to_bin(phases, bin_edges)
 covered_bin_indices = np.unique(phase_to_bin(covered_bins, bin_edges))
 
