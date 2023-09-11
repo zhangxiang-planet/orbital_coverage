@@ -149,7 +149,7 @@ else:
     print('Error: Observing instrument can only be NENUFAR or LOFAR.')
     exit(1) 
 
-if base_paths == []:
+if len(base_paths) == 0:
     print("No detection is found with the field name. Maybe try another?")
 
 if args.baddata == True:
@@ -251,7 +251,7 @@ if args.instrument == "NENUFAR":
                     t_ends.append(convert_to_julian_date(end_date, end_time))
                 elif obs_mode == 'BEAMFORM':
                     file_paths = glob.glob(base_path + '/' + dirname + "/*.parset")
-                    if file_paths == []:
+                    if len(file_paths) == 0:
                         file_paths = glob.glob(base_path + '/' + dirname + "/L1/*.parset")
                     file_paths.sort()
 
@@ -260,9 +260,9 @@ if args.instrument == "NENUFAR":
                         f_min, f_max = extract_subband_values(file_paths[0])
                     else:
                         file_paths = glob.glob(base_path + '/' + dirname + "/L1/*.spectra.txt")
-                        if file_paths == []:
+                        if len(file_paths) == 0:
                             file_paths = glob.glob(base_path + '/' + dirname + "/*.spectra.txt")
-                        if file_paths == []:
+                        if len(file_paths) == 0:
                             print("No frequency information was found in directory " + base_path + '/' + dirname + ". Please double check.")
                             exit(1)
                         file_paths.sort()
@@ -392,7 +392,7 @@ if args.avoid == True:
     schedules = glob.glob('*_booking.csv')
     schedules.sort()
 
-    if schedules == []:
+    if len(schedules) == 0:
         print("Error: No schedule files found.")
         exit(1)
 
