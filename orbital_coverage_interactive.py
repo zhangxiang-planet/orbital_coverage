@@ -307,7 +307,7 @@ t_ends_utc = Time(t_ends, format='jd', scale='utc').iso
 
 f.write("\nThis section gives summary of observations already taken.\nColumns: Observation start time (JD), Observation end time (JD), Orbital Phase at start time, Orbital Phase at end time, Observation start time (UTC), Observation end time (UTC)\n\n")
 
-if t_starts == []:
+if len(t_starts) == 0:
     print('No previous observation was found.')
 else:
     vfunc = np.vectorize(format_func)
