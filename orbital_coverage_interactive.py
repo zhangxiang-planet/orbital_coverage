@@ -425,7 +425,11 @@ num_bins = 360
 bin_edges = np.linspace(0, 1, num_bins+1)
 
 phases_bin_indices = phase_to_bin(phases, bin_edges)
-covered_bin_indices = np.unique(phase_to_bin(covered_bins, bin_edges))
+
+if len(t_starts) == 0:
+    covered_bin_indices = []
+else:
+    covered_bin_indices = np.unique(phase_to_bin(covered_bins, bin_edges))
 
 # Filter by altitude > 40°, nighttime, and not-covered phases
 if args.limit == False:
