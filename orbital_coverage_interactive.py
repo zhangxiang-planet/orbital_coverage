@@ -476,6 +476,7 @@ long_clusters_end_phase = ((long_clusters_end.jd - jd0) / p_e) % 1
 f.write('\n-----------\n')
 f.write("This section gives summary of observation windows in next 30 days.\nColumns: Observation start time (JD), Observation end time (JD), Orbital Phase at start time, Orbital Phase at end time, Observation start time (UTC), Observation end time (UTC)\n\n")
 
+vfunc = np.vectorize(format_func)
 t_phase_predicted = np.vstack((vfunc(long_clusters_start.jd).astype(str), vfunc(long_clusters_end.jd).astype(str), vfunc(long_clusters_start_phase).astype(str), vfunc(long_clusters_end_phase).astype(str), long_clusters_start.iso.astype(str), long_clusters_end.iso.astype(str)))
 np.savetxt(f, t_phase_predicted.T, fmt='%s', delimiter=', ')
 
