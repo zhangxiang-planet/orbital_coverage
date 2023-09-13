@@ -111,6 +111,8 @@ parser.add_argument('-l', '--limit', action='store_true', default=False,
     help='Orbital coverage limit. If set, only give observing window with oribital phase uncovered by previous observations. Default False.')
 parser.add_argument('-a', '--avoid', action='store_true', default=False, 
     help='Avoiding observing windows already booked by others. If set, an observing schedule file is required as input. Default False.')
+parser.add_argument('-w', '--window', type=float, default=2, 
+    help='Only give observing windows longer than X hours. Default 2.')
 
 args = parser.parse_args()
 target_name = args.target
@@ -470,9 +472,9 @@ cluster_end = Time(cluster_end)
 # Compute the duration of each cluster in hours
 cluster_durations = (cluster_end.jd - cluster_start.jd) * 24  # converting days to hours
 
-# Identify clusters with durations > 1 hour
+# Identify clusters with durations > X hour
 long_clusters_indices = np.where(cluster_durations > 1)[0]
-long_clusters_mask = cluster_durations > 1
+long_clusters_mask = cluster_durations > args.window
 
 long_clusters_start = cluster_start[long_clusters_mask]
 long_clusters_end = cluster_end[long_clusters_mask]
@@ -503,7 +505,7 @@ bool_mask = np.isin(times, long_clusters_times)
 # print(altitudes_target[bool_mask])
 
 # Plotting
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(10, 8))
 sc = plt.scatter(phases_all, times_all.to_value('unix', subfmt='float') / 86400, c='gray', marker='.', s=3, alpha=0.1)
 sc = plt.scatter(phases[bool_mask], times[bool_mask].to_value('unix', subfmt='float') / 86400, c=np.array(altitudes_target[bool_mask]), marker='o', cmap='viridis')
 
