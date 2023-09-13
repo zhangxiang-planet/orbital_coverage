@@ -167,7 +167,7 @@ table = NasaExoplanetArchive.query_object(target_name.replace("_", " "))
 
 # Find the reference with smallest error in orbital period
 mask = np.logical_and(table['soltype'] == 'Published Confirmed', table['pl_tranmid']>0)
-small_err = min(table[mask]['pl_orbpererr1'] - table[mask]['pl_orbpererr2'])
+small_err = np.nanmin(table[mask]['pl_orbpererr1'] - table[mask]['pl_orbpererr2'])
 best_reference = table[(table['pl_orbpererr1'] - table['pl_orbpererr2']) == small_err]
 
 reference = best_reference
