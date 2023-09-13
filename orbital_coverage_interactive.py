@@ -473,7 +473,7 @@ cluster_end = Time(cluster_end)
 cluster_durations = (cluster_end.jd - cluster_start.jd) * 24  # converting days to hours
 
 # Identify clusters with durations > X hour
-long_clusters_indices = np.where(cluster_durations > 1)[0]
+long_clusters_indices = np.where(cluster_durations > args.window)[0]
 long_clusters_mask = cluster_durations > args.window
 
 long_clusters_start = cluster_start[long_clusters_mask]
