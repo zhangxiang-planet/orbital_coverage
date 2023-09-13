@@ -398,7 +398,7 @@ if args.avoid == True:
 
     new_schedule = schedules[-1]
     print("Using future schedule file: " + new_schedule)
-    schedule_data = np.genfromtxt(new_schedule, delimiter=',', skip_header=1, dtype=str)
+    schedule_data = np.genfromtxt(new_schedule, delimiter=',', skip_header=1, usecols=(0, 1, 2), dtype=str)
     schedule_start = Time(schedule_data[:,0], format='iso')
     schedule_end = Time(schedule_data[:,1], format='iso')
 
