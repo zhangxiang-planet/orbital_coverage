@@ -101,6 +101,8 @@ parser.add_argument('-j', '--jd', type=float, default=0,
     help='Time of Conjuction (Transit Midpoint) in JD. Only used in manual mode. Default 0.')
 parser.add_argument('-pre', '--predict', type=float, default=30, 
     help='Predict length in days. Giving observing window for the target in next XX days. Default 30.')
+parser.add_argument('-d', '--date', type=str, default='NOW', 
+    help='Start date of prediction. Format YYYY-MM-DD. Default the current date.')
 parser.add_argument('-e', '--elevation', type=float, default=40, 
     help='Target elevation limit in degrees. Only give observing window with target elevation > XX degress. Default 40.')
 parser.add_argument('-s', '--sun', type=float, default=-18, 
@@ -377,7 +379,11 @@ else:
 ####################################
 
 # Compute the time range for the next month
-start_time = Time(datetime.now())
+if args.date == 'NOW':
+    start_time = Time(datetime.now())
+else:
+    start_time = Time(args.date)
+
 end_time = start_time + timedelta(days=predict_length)
 delta_t = timedelta(minutes=10)  
 times = Time([start_time + i*delta_t for i in range(int((end_time - start_time).sec/delta_t.seconds))])
