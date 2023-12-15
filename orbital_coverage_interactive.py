@@ -190,11 +190,6 @@ p_e = float(reference['pl_orbper'].value[0])
 p_e_error = float(small_err.value / 2)
 jd0 = float(reference['pl_tranmid'].value[0])
 
-# Will lose phase coherence (10 percent of one orbit) by what time?
-esti_cut = float((p_e/p_e_error)*(0.1*p_e) + jd0)
-# print(esti_cut)
-esti_cut_utc = Time(esti_cut, format='jd', scale='utc').iso
-
 # summary file
 f = open(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_summary.txt', 'w')
 
@@ -231,6 +226,10 @@ else:
     f.write("Error in Orbital Period: " + str(p_e_error) + '\n')
     f.write("Time of Conjuction (Transit Midpoint): " + str(jd0) + '\n')
 
+# Will lose phase coherence (10 percent of one orbit) by what time?
+esti_cut = float((p_e/p_e_error)*(0.1*p_e) + jd0)
+# print(esti_cut)
+esti_cut_utc = Time(esti_cut, format='jd', scale='utc').iso
 
 print('Will lose phase coherence (10 percent of one orbit) by:', esti_cut_utc)
 print("----------")
