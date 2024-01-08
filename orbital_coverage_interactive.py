@@ -342,7 +342,10 @@ else:
     # Plot 1: Orbital Phase Distribution of Observations
     if args.instrument == "LOFAR":    
         fig, axs = plt.subplots(2, 1, figsize=(8, 6), sharex=True)
-        sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis')
+
+        vmin, vmax = 0, 90
+
+        sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         axs[0].set_xlim(0,1)
         # axs[0].set_title(target_name + ": Orbital Phase of Past Observations (2017)")
         # axs[0].set_xlabel("Orbital Phase")
@@ -350,7 +353,7 @@ else:
         axs[0].yaxis.set_major_locator(mdates.AutoDateLocator())
         axs[0].yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
 
-        sc2 = axs[1].scatter(phases_segments[mask_2017], datetime_segments[mask_2017], c=elevations_segments[mask_2017], marker='o', cmap='viridis')
+        sc2 = axs[1].scatter(phases_segments[mask_2017], datetime_segments[mask_2017], c=elevations_segments[mask_2017], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         axs[1].set_xlim(0,1)
         # axs[1].set_title(target_name + ": Orbital Phase of Past Observations (2020)")
         # axs[1].set_xlabel("Orbital Phase")
@@ -363,15 +366,15 @@ else:
             ax.set_ylabel("Time (UT)")
         fig.suptitle(target_name + ": Orbital Phase of Past Observations")
 
-        fig.subplots_adjust(right=0.8)
-        cbar_ax = fig.add_axes([0.85, 0.15, 0.05, 0.7])  # Adjust the dimensions as needed
+        fig.subplots_adjust(right=0.85)
+        cbar_ax = fig.add_axes([0.87, 0.15, 0.03, 0.7])  # Adjust the dimensions as needed
 
         # Add colorbar
         cbar = fig.colorbar(sc1, cax=cbar_ax)
         cbar.set_label('Target Elevation (deg)')
 
 # Adjust layout
-        fig.tight_layout(rect=[0, 0, 0.8, 1])
+        fig.tight_layout(rect=[0, 0, 0.85, 1])
     
         plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase.png', dpi=300, bbox_inches='tight', facecolor='w')
         plt.close()
