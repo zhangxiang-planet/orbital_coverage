@@ -284,16 +284,16 @@ if args.instrument == "NENUFAR":
                     exit(1)
 
                     
-
 elif args.instrument == "LOFAR":
     for base_path in base_paths:
         files = glob.glob(base_path + '/*.h5')
         files.sort()
         with h5py.File(files[0], 'r') as file:
-            t_start = Time(file.attrs['OBSERVATION_START_MJD'], format='mjd')
-            t_end = Time(file.attrs['OBSERVATION_END_MJD'], format='mjd')
-            t_starts.append(t_start.jd)
-            t_ends.append(t_end.jd)
+            if 'Tau Boo' in file.attrs['TARGETS'] or 'Tau Bootis' in file.attrs['TARGETS']:
+                t_start = Time(file.attrs['OBSERVATION_START_MJD'], format='mjd')
+                t_end = Time(file.attrs['OBSERVATION_END_MJD'], format='mjd')
+                t_starts.append(t_start.jd)
+                t_ends.append(t_end.jd)
 else:
     print('Error: Observing instrument can only be NENUFAR or LOFAR.')
     exit(1) 
@@ -327,6 +327,12 @@ else:
     all_segments = np.array(all_segments)
     phases_segments = ((all_segments - jd0) / p_e) % 1
     datetime_segments = Time(all_segments, format='jd', scale='utc')
+
+    if args.instrument == "LOFAR":
+        # We need to plot 2017 and 2020 data seperately
+        mask_2017 = datetime_segments.iso[:].astype(str) < '2018'
+        mask_2020 = datetime_segments.iso[:].astype(str) > '2019'
+
     datetime_segments = np.array(datetime_segments.to_value('unix', subfmt='float') / 86400)
 
     # Calculate elevations for these segments
@@ -334,18 +340,42 @@ else:
     elevations_segments = np.array(target_altaz_segments.alt.deg)
 
     # Plot 1: Orbital Phase Distribution of Observations
-    plt.figure(figsize=(8, 6))
-    sc = plt.scatter(phases_segments, datetime_segments, c=elevations_segments, marker='o', cmap='viridis')
-    plt.colorbar(sc, label='Target Elevation (deg)')
-    plt.gca().yaxis.set_major_locator(mdates.AutoDateLocator())
-    plt.gca().yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
-    plt.xlim(0,1)
-    plt.title(target_name + ": Orbital Phase of Past Observations")
-    plt.xlabel("Orbital Phase")
-    plt.ylabel("Time (UT)")
-    plt.tight_layout()
-    plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase_collected.png', dpi=300, bbox_inches='tight', facecolor='w')
-    plt.close()
+    if args.instrument == "LOFAR":    
+        fig, axs = plt.subplots(2, 1, figsize=(8, 6))
+        axs[0].scatter(phases_segments[mask_2017], datetime_segments[mask_2017], c=elevations_segments[mask_2017], marker='o', cmap='viridis')
+        axs[0].set_xlim(0,1)
+        # axs[0].set_title(target_name + ": Orbital Phase of Past Observations (2017)")
+        # axs[0].set_xlabel("Orbital Phase")
+        # axs[0].set_ylabel("Time (UT)")
+        axs[0].yaxis.set_major_locator(mdates.AutoDateLocator())
+        axs[0].yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+        axs[1].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis')
+        axs[1].set_xlim(0,1)
+        # axs[1].set_title(target_name + ": Orbital Phase of Past Observations (2020)")
+        # axs[1].set_xlabel("Orbital Phase")
+        # axs[1].set_ylabel("Time (UT)")
+        axs[1].yaxis.set_major_locator(mdates.AutoDateLocator())
+        axs[1].yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+        plt.title(target_name + ": Orbital Phase of Past Observations")
+        plt.xlabel("Orbital Phase")
+        plt.ylabel("Time (UT)")
+        fig.tight_layout()
+        plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase.png', dpi=300, bbox_inches='tight', facecolor='w')
+        plt.close()
+
+    else:
+        plt.figure(figsize=(8, 6))
+        sc = plt.scatter(phases_segments, datetime_segments, c=elevations_segments, marker='o', cmap='viridis')
+        plt.colorbar(sc, label='Target Elevation (deg)')
+        plt.gca().yaxis.set_major_locator(mdates.AutoDateLocator())
+        plt.gca().yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+        plt.xlim(0,1)
+        plt.title(target_name + ": Orbital Phase of Past Observations")
+        plt.xlabel("Orbital Phase")
+        plt.ylabel("Time (UT)")
+        plt.tight_layout()
+        plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase_collected.png', dpi=300, bbox_inches='tight', facecolor='w')
+        plt.close()
 
     #####################################
 
