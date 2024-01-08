@@ -343,7 +343,7 @@ else:
     if args.instrument == "LOFAR":    
         fig, axs = plt.subplots(2, 1, figsize=(8, 6), sharex=True)
 
-        vmin, vmax = 20, 70
+        vmin, vmax = 30, 60
 
         sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         axs[0].set_xlim(0,1)
@@ -367,7 +367,7 @@ else:
         fig.suptitle(target_name + ": Orbital Phase of Past Observations")
 
         fig.subplots_adjust(right=0.85)
-        cbar_ax = fig.add_axes([0.87, 0.15, 0.03, 0.7])  # Adjust the dimensions as needed
+        cbar_ax = fig.add_axes([0.87, 0.15, 0.03, 0.9])  # Adjust the dimensions as needed
 
         # Add colorbar
         cbar = fig.colorbar(sc1, cax=cbar_ax)
