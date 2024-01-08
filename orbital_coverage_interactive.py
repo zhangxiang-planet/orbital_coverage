@@ -350,7 +350,9 @@ else:
         fig, axs = plt.subplots(2, 1, figsize=(8, 6), sharex=True)
 
         # vmin, vmax = 30, 55
-        print(lofar_ids)
+        print(phases_observed_starts[start_mask_2020])
+        print(t_starts[start_mask_2020])
+        print(lofar_ids[start_mask_2020])
 
         # sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], marker='o')
