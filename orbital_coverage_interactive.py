@@ -287,15 +287,16 @@ if args.instrument == "NENUFAR":
 elif args.instrument == "LOFAR":
     lofar_ids = []
     for base_path in base_paths:
-        lofar_ids.append(base_path.split('/')[-3])
         files = glob.glob(base_path + '/*.h5')
         files.sort()
         with h5py.File(files[0], 'r') as file:
             if 'Tau Boo' in file.attrs['TARGETS'] or 'Tau Bootis' in file.attrs['TARGETS']:
+                lofar_ids.append(base_path.split('/')[-3])
                 t_start = Time(file.attrs['OBSERVATION_START_MJD'], format='mjd')
                 t_end = Time(file.attrs['OBSERVATION_END_MJD'], format='mjd')
                 t_starts.append(t_start.jd)
                 t_ends.append(t_end.jd)
+    lofar_ids = np.array(lofar_ids)
 else:
     print('Error: Observing instrument can only be NENUFAR or LOFAR.')
     exit(1) 
