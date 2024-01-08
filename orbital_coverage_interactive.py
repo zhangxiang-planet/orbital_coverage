@@ -350,14 +350,17 @@ else:
         fig, axs = plt.subplots(2, 1, figsize=(8, 6), sharex=True)
 
         # vmin, vmax = 30, 55
-        print(phases_observed_starts[start_mask_2020])
         print(t_starts[start_mask_2020])
-        print(lofar_ids[start_mask_2020])
+        print(datetime_segments[mask_2020])
 
         # sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], marker='o')
-        axs[0].text(phases_observed_starts[start_mask_2020], t_starts[start_mask_2020], lofar_ids[start_mask_2020], fontsize=8)
-        
+        # axs[0].text(phases_observed_starts[start_mask_2020], t_starts[start_mask_2020], lofar_ids[start_mask_2020], fontsize=8)
+        for x, y, text in zip(phases_observed_starts[start_mask_2020], 
+                      t_starts[start_mask_2020], 
+                      lofar_ids[start_mask_2020]):
+            axs[0].text(x, y, text, fontsize=8)
+
         axs[0].set_xlim(0,1)
         # axs[0].set_title(target_name + ": Orbital Phase of Past Observations (2017)")
         # axs[0].set_xlabel("Orbital Phase")
@@ -367,8 +370,13 @@ else:
 
         # sc2 = axs[1].scatter(phases_segments[mask_2017], datetime_segments[mask_2017], c=elevations_segments[mask_2017], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         sc2 = axs[1].scatter(phases_segments[mask_2017], datetime_segments[mask_2017], marker='o')
-        axs[1].text(phases_observed_starts[start_mask_2017], t_starts[start_mask_2017], lofar_ids[start_mask_2017], fontsize=8)
+        # axs[1].text(phases_observed_starts[start_mask_2017], t_starts[start_mask_2017], lofar_ids[start_mask_2017], fontsize=8)
         
+        for x, y, text in zip(phases_observed_starts[start_mask_2017], 
+                      t_starts[start_mask_2017], 
+                      lofar_ids[start_mask_2017]):
+            axs[0].text(x, y, text, fontsize=8)
+
         axs[1].set_xlim(0,1)
         # axs[1].set_title(target_name + ": Orbital Phase of Past Observations (2020)")
         # axs[1].set_xlabel("Orbital Phase")
