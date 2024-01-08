@@ -345,7 +345,7 @@ else:
 
         vmin, vmax = 30, 55
 
-        sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax, alpha=0.5)
+        sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         axs[0].set_xlim(0,1)
         # axs[0].set_title(target_name + ": Orbital Phase of Past Observations (2017)")
         # axs[0].set_xlabel("Orbital Phase")
@@ -353,7 +353,7 @@ else:
         axs[0].yaxis.set_major_locator(mdates.AutoDateLocator())
         axs[0].yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
 
-        sc2 = axs[1].scatter(phases_segments[mask_2017], datetime_segments[mask_2017], c=elevations_segments[mask_2017], marker='o', cmap='viridis', vmin=vmin, vmax=vmax, alpha=0.5)
+        sc2 = axs[1].scatter(phases_segments[mask_2017], datetime_segments[mask_2017], c=elevations_segments[mask_2017], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         axs[1].set_xlim(0,1)
         # axs[1].set_title(target_name + ": Orbital Phase of Past Observations (2020)")
         # axs[1].set_xlabel("Orbital Phase")
