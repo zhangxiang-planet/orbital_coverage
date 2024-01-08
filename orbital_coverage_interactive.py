@@ -343,7 +343,7 @@ else:
     if args.instrument == "LOFAR":    
         fig, axs = plt.subplots(2, 1, figsize=(8, 6), sharex=True)
 
-        vmin, vmax = 0, 90
+        vmin, vmax = 20, 70
 
         sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         axs[0].set_xlim(0,1)
