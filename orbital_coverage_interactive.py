@@ -285,7 +285,9 @@ if args.instrument == "NENUFAR":
 
                     
 elif args.instrument == "LOFAR":
+    lofar_ids = []
     for base_path in base_paths:
+        lofar_ids.append(base_path.split('/')[-3])
         files = glob.glob(base_path + '/*.h5')
         files.sort()
         with h5py.File(files[0], 'r') as file:
@@ -347,6 +349,7 @@ else:
 
         # sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], marker='o')
+        axs[0].text(phases_segments[mask_2020], datetime_segments[mask_2020], lofar_ids[mask_2020], fontsize=8)
         
         axs[0].set_xlim(0,1)
         # axs[0].set_title(target_name + ": Orbital Phase of Past Observations (2017)")
@@ -357,6 +360,7 @@ else:
 
         # sc2 = axs[1].scatter(phases_segments[mask_2017], datetime_segments[mask_2017], c=elevations_segments[mask_2017], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         sc2 = axs[1].scatter(phases_segments[mask_2017], datetime_segments[mask_2017], marker='o')
+        axs[1].text(phases_segments[mask_2017], datetime_segments[mask_2017], lofar_ids[mask_2017], fontsize=8)
         
         axs[1].set_xlim(0,1)
         # axs[1].set_title(target_name + ": Orbital Phase of Past Observations (2020)")
