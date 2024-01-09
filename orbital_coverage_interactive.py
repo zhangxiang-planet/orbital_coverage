@@ -375,8 +375,8 @@ else:
         sc2 = axs[1].scatter(phases_segments[mask_2017], datetime_segments[mask_2017], marker='o')
         # axs[1].text(phases_observed_starts[start_mask_2017], t_starts[start_mask_2017], lofar_ids[start_mask_2017], fontsize=8)
         
-        for x, y, text in zip(phases_observed_starts[start_mask_2017]-0.05, 
-                      t_starts_text[start_mask_2017]+1, 
+        for x, y, text in zip(phases_observed_starts[start_mask_2017]-0.02, 
+                      t_starts_text[start_mask_2017]+2, 
                       lofar_ids[start_mask_2017]):
             axs[1].text(x, y, text, fontsize=8)
 
