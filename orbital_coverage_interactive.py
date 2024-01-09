@@ -311,6 +311,8 @@ phases_observed_ends = ((t_ends - jd0) / p_e) % 1
 t_starts_utc = Time(t_starts, format='jd', scale='utc').iso
 t_ends_utc = Time(t_ends, format='jd', scale='utc').iso
 
+t_starts_time_obj = Time(t_starts, format='jd', scale='utc')
+
 f.write("\nThis section gives summary of observations already taken.\nColumns: Observation start time (JD), Observation end time (JD), Orbital Phase at start time, Orbital Phase at end time, Observation start time (UTC), Observation end time (UTC)\n\n")
 
 if len(t_starts) == 0:
@@ -340,7 +342,7 @@ else:
         start_mask_2020 = t_starts_utc.astype(str) > '2019'
 
     datetime_segments = np.array(datetime_segments.to_value('unix', subfmt='float') / 86400)
-    t_starts_text = np.array(t_starts_utc.to_value('unix', subfmt='float') / 86400)
+    t_starts_text = np.array(t_starts_time_obj.to_value('unix', subfmt='float') / 86400)
 
     # Calculate elevations for these segments
     target_altaz_segments = target.transform_to(AltAz(obstime=Time(all_segments, format='jd'), location=location))
