@@ -340,6 +340,7 @@ else:
         start_mask_2020 = t_starts_utc.astype(str) > '2019'
 
     datetime_segments = np.array(datetime_segments.to_value('unix', subfmt='float') / 86400)
+    t_starts_text = np.array(t_starts_utc.to_value('unix', subfmt='float') / 86400)
 
     # Calculate elevations for these segments
     target_altaz_segments = target.transform_to(AltAz(obstime=Time(all_segments, format='jd'), location=location))
@@ -350,14 +351,14 @@ else:
         fig, axs = plt.subplots(2, 1, figsize=(8, 6), sharex=True)
 
         # vmin, vmax = 30, 55
-        print(t_starts[start_mask_2020])
+        print(t_starts_text[start_mask_2020])
         print(datetime_segments[mask_2020])
 
         # sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], marker='o')
         # axs[0].text(phases_observed_starts[start_mask_2020], t_starts[start_mask_2020], lofar_ids[start_mask_2020], fontsize=8)
         for x, y, text in zip(phases_observed_starts[start_mask_2020], 
-                      t_starts[start_mask_2020], 
+                      t_starts_text[start_mask_2020], 
                       lofar_ids[start_mask_2020]):
             axs[0].text(x, y, text, fontsize=8)
 
@@ -373,7 +374,7 @@ else:
         # axs[1].text(phases_observed_starts[start_mask_2017], t_starts[start_mask_2017], lofar_ids[start_mask_2017], fontsize=8)
         
         for x, y, text in zip(phases_observed_starts[start_mask_2017], 
-                      t_starts[start_mask_2017], 
+                      t_starts_text[start_mask_2017], 
                       lofar_ids[start_mask_2017]):
             axs[0].text(x, y, text, fontsize=8)
 
