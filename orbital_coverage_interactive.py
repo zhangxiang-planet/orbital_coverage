@@ -356,7 +356,7 @@ else:
         lofar_ids_2020 = lofar_ids[start_mask_2020]
 
         lofar_ids_2017[-1] = ''
-        lofar_ids_2020[0:1] = ''
+        lofar_ids_2020[0:2] = ''
 
         # modifications to make the text labels within the bounds of the plot
 
