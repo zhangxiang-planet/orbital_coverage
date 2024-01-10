@@ -368,7 +368,7 @@ else:
         for x, y, text in zip(phases_observed_starts[start_mask_2020], 
                       t_starts_text[start_mask_2020]-2, 
                       lofar_ids[start_mask_2020]):
-            axs[0].text(x, y, text, fontsize=8)
+            axs[0].text(x, y, text, fontsize=8, clip_on=True)
 
         axs[0].set_xlim(0,1)
         # axs[0].set_title(target_name + ": Orbital Phase of Past Observations (2017)")
@@ -384,7 +384,7 @@ else:
         for x, y, text in zip(phases_observed_starts[start_mask_2017]-0.02, 
                       t_starts_text[start_mask_2017]+2, 
                       lofar_ids[start_mask_2017]):
-            axs[1].text(x, y, text, fontsize=8)
+            axs[1].text(x, y, text, fontsize=8, clip_on=True)
 
         axs[1].set_xlim(0,1)
         # axs[1].set_title(target_name + ": Orbital Phase of Past Observations (2020)")
