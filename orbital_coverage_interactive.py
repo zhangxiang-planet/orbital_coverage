@@ -352,8 +352,11 @@ else:
     if args.instrument == "LOFAR":    
         fig, axs = plt.subplots(2, 1, figsize=(8, 6), sharex=True)
 
-        # lofar_ids_2017 = lofar_ids[start_mask_2017]
-        # lofar_ids_2020 = lofar_ids[start_mask_2020]
+        lofar_ids_2017 = lofar_ids[start_mask_2017]
+        lofar_ids_2020 = lofar_ids[start_mask_2020]
+
+        lofar_ids_2017[-1] = ''
+        lofar_ids_2020[0:1] = ''
 
         # modifications to make the text labels within the bounds of the plot
 
@@ -365,9 +368,9 @@ else:
         # sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], marker='o')
         # axs[0].text(phases_observed_starts[start_mask_2020], t_starts[start_mask_2020], lofar_ids[start_mask_2020], fontsize=8)
-        for x, y, text in zip(phases_observed_starts[start_mask_2020]-0.01, 
+        for x, y, text in zip(phases_observed_starts[start_mask_2020], 
                       t_starts_text[start_mask_2020]-2, 
-                      lofar_ids[start_mask_2020]):
+                      lofar_ids_2020):
             axs[0].text(x, y, text, fontsize=8)
 
         axs[0].set_xlim(0,1)
@@ -383,7 +386,7 @@ else:
         
         for x, y, text in zip(phases_observed_starts[start_mask_2017]-0.02, 
                       t_starts_text[start_mask_2017]+2, 
-                      lofar_ids[start_mask_2017]):
+                      lofar_ids_2017):
             axs[1].text(x, y, text, fontsize=8)
 
         axs[1].set_xlim(0,1)
@@ -410,7 +413,7 @@ else:
         # plt.subplots_adjust(top=0.85)
         # fig.constrained_layout=True
     
-        plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase.png', dpi=300, facecolor='w')
+        plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase.png', dpi=300, bbox_inches='tight', facecolor='w')
         plt.close()
 
     else:
