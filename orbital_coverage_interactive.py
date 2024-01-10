@@ -406,9 +406,9 @@ else:
         # cbar.set_label('Target Elevation (deg)')
 
 # Adjust layout
-        # fig.tight_layout(rect=[0, 0, 0.85, 1])
+        fig.tight_layout(rect=[0, 0, 0.85, 1])
         # plt.subplots_adjust(top=0.85)
-        fig.constrained_layout=True
+        # fig.constrained_layout=True
     
         plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase.png', dpi=300, facecolor='w')
         plt.close()
