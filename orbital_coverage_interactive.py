@@ -365,12 +365,12 @@ else:
         # sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], c=elevations_segments[mask_2020], marker='o', cmap='viridis', vmin=vmin, vmax=vmax)
         sc1 = axs[0].scatter(phases_segments[mask_2020], datetime_segments[mask_2020], marker='o')
         # axs[0].text(phases_observed_starts[start_mask_2020], t_starts[start_mask_2020], lofar_ids[start_mask_2020], fontsize=8)
-        for x, y, text in zip(phases_observed_starts[start_mask_2020], 
+        for x, y, text in zip(phases_observed_starts[start_mask_2020]-0.01, 
                       t_starts_text[start_mask_2020]-2, 
                       lofar_ids[start_mask_2020]):
             axs[0].text(x, y, text, fontsize=8)
 
-        # axs[0].set_xlim(0,1)
+        axs[0].set_xlim(0,1)
         # axs[0].set_title(target_name + ": Orbital Phase of Past Observations (2017)")
         # axs[0].set_xlabel("Orbital Phase")
         # axs[0].set_ylabel("Time (UT)")
@@ -386,7 +386,7 @@ else:
                       lofar_ids[start_mask_2017]):
             axs[1].text(x, y, text, fontsize=8)
 
-        # axs[1].set_xlim(0,1)
+        axs[1].set_xlim(0,1)
         # axs[1].set_title(target_name + ": Orbital Phase of Past Observations (2020)")
         # axs[1].set_xlabel("Orbital Phase")
         # axs[1].set_ylabel("Time (UT)")
