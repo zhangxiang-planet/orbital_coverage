@@ -352,6 +352,12 @@ else:
     if args.instrument == "LOFAR":    
         fig, axs = plt.subplots(2, 1, figsize=(8, 6), sharex=True)
 
+        # lofar_ids_2017 = lofar_ids[start_mask_2017]
+        # lofar_ids_2020 = lofar_ids[start_mask_2020]
+
+        # modifications to make the text labels within the bounds of the plot
+
+
         # vmin, vmax = 30, 55
         # print(t_starts_text[start_mask_2020])
         # print(datetime_segments[mask_2020])
@@ -400,7 +406,9 @@ else:
         # cbar.set_label('Target Elevation (deg)')
 
 # Adjust layout
-        fig.tight_layout(rect=[0, 0, 0.85, 1])
+        # fig.tight_layout(rect=[0, 0, 0.85, 1])
+        plt.subplots_adjust(top=0.85)
+        fig.constrained_layout=True
     
         plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase.png', dpi=300, bbox_inches='tight', facecolor='w')
         plt.close()
