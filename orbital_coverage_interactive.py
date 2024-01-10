@@ -370,7 +370,7 @@ else:
                       lofar_ids[start_mask_2020]):
             axs[0].text(x, y, text, fontsize=8)
 
-        axs[0].set_xlim(0,1)
+        # axs[0].set_xlim(0,1)
         # axs[0].set_title(target_name + ": Orbital Phase of Past Observations (2017)")
         # axs[0].set_xlabel("Orbital Phase")
         # axs[0].set_ylabel("Time (UT)")
@@ -386,7 +386,7 @@ else:
                       lofar_ids[start_mask_2017]):
             axs[1].text(x, y, text, fontsize=8)
 
-        axs[1].set_xlim(0,1)
+        # axs[1].set_xlim(0,1)
         # axs[1].set_title(target_name + ": Orbital Phase of Past Observations (2020)")
         # axs[1].set_xlabel("Orbital Phase")
         # axs[1].set_ylabel("Time (UT)")
@@ -410,7 +410,7 @@ else:
         # plt.subplots_adjust(top=0.85)
         fig.constrained_layout=True
     
-        plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase.png', dpi=300, bbox_inches='tight', facecolor='w')
+        plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_orbital_phase.png', dpi=300, facecolor='w')
         plt.close()
 
     else:
