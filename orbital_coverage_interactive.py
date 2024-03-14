@@ -461,7 +461,7 @@ else:
     plt.close()
 
     # Add an image of combined histogram and scatter plot
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 12), sharex=True, gridspec_kw={'height_ratios': [3, 1], 'hspace': 0})
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 10), sharex=True, gridspec_kw={'height_ratios': [3, 1], 'hspace': 0})
 
     # First plot
     sc = ax1.scatter(phases_segments, datetime_segments, marker='o')
