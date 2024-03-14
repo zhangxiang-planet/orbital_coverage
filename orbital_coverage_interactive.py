@@ -461,14 +461,14 @@ else:
     plt.close()
 
     # Add an image of combined histogram and scatter plot
-    plt.rcParams.update({'font.size': 14})
+    plt.rcParams.update({'font.size': 18})
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 10), sharex=True, gridspec_kw={'height_ratios': [3, 1], 'hspace': 0})
 
     # First plot
     sc = ax1.scatter(phases_segments, datetime_segments, marker='o')
     # fig.colorbar(sc, ax=ax1, label='Target Elevation (deg)')
     ax1.yaxis.set_major_locator(mdates.AutoDateLocator())
-    ax1.yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+    ax1.yaxis.set_major_formatter(mdates.DateFormatter("%m-%d"))
     ax1.set_xlim(0, 1)
     ax1.set_ylabel("Time (UT)")
 
@@ -476,7 +476,7 @@ else:
     ax2.bar(bin_edges[:-1], phase_coverage, width=1/num_bins, align='edge')
     ax2.set_xticks(np.arange(0, 1.1, 0.1))
     ax2.set_xlabel("Orbital Phase [0=transit]")
-    ax2.set_ylabel("Number of Observations")
+    ax2.set_ylabel("Number of Obs")
 
     # Adjust layout and save
     plt.tight_layout()
