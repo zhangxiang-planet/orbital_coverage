@@ -461,6 +461,7 @@ else:
     plt.close()
 
     # Add an image of combined histogram and scatter plot
+    plt.rcParams.update({'font.size': 12})
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 10), sharex=True, gridspec_kw={'height_ratios': [3, 1], 'hspace': 0})
 
     # First plot
