@@ -460,6 +460,29 @@ else:
     plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_phase_coverage_hist.png', dpi=300, bbox_inches='tight', facecolor='w')
     plt.close()
 
+    # Add an image of combined histogram and scatter plot
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 12), sharex=True)
+
+    # First plot
+    sc = ax1.scatter(phases_segments, datetime_segments, c=elevations_segments, marker='o', cmap='viridis')
+    fig.colorbar(sc, ax=ax1, label='Target Elevation (deg)')
+    ax1.yaxis.set_major_locator(mdates.AutoDateLocator())
+    ax1.yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+    ax1.set_xlim(0, 1)
+    ax1.set_ylabel("Time (UT)")
+
+    # Second plot
+    ax2.bar(bin_edges[:-1], phase_coverage, width=1/num_bins, align='edge')
+    ax2.set_xticks(np.arange(0, 1.05, 0.05))
+    ax2.set_xlabel("Orbital Phase [0=transit]")
+    ax2.set_ylabel("Number of Observations")
+
+    # Adjust layout and save
+    plt.tight_layout()
+    plt.savefig(target_name + '_' + args['instrument'] + '_' + args['obs_mode'] + '_' + args['drive_mode'] + '_combined.png', dpi=300, bbox_inches='tight', facecolor='w')
+    plt.close()
+
+
 ####################################
 
 # Compute the time range for the next month
