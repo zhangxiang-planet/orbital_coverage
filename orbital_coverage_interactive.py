@@ -479,7 +479,7 @@ else:
 
     # Adjust layout and save
     plt.tight_layout()
-    plt.savefig(target_name + '_' + args['instrument'] + '_' + args['obs_mode'] + '_' + args['drive_mode'] + '_combined.png', dpi=300, bbox_inches='tight', facecolor='w')
+    plt.savefig(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_combined.png', dpi=300, bbox_inches='tight', facecolor='w')
     plt.close()
 
 
