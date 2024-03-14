@@ -461,11 +461,11 @@ else:
     plt.close()
 
     # Add an image of combined histogram and scatter plot
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 12), sharex=True)
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 12), sharex=True, gridspec_kw={'height_ratios': [3, 1], 'hspace': 0})
 
     # First plot
-    sc = ax1.scatter(phases_segments, datetime_segments, c=elevations_segments, marker='o', cmap='viridis')
-    fig.colorbar(sc, ax=ax1, label='Target Elevation (deg)')
+    sc = ax1.scatter(phases_segments, datetime_segments, marker='o')
+    # fig.colorbar(sc, ax=ax1, label='Target Elevation (deg)')
     ax1.yaxis.set_major_locator(mdates.AutoDateLocator())
     ax1.yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
     ax1.set_xlim(0, 1)
