@@ -461,7 +461,7 @@ else:
     plt.close()
 
     # Add an image of combined histogram and scatter plot
-    plt.rcParams.update({'font.size': 12})
+    plt.rcParams.update({'font.size': 14})
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 10), sharex=True, gridspec_kw={'height_ratios': [3, 1], 'hspace': 0})
 
     # First plot
@@ -474,7 +474,7 @@ else:
 
     # Second plot
     ax2.bar(bin_edges[:-1], phase_coverage, width=1/num_bins, align='edge')
-    ax2.set_xticks(np.arange(0, 1.05, 0.05))
+    ax2.set_xticks(np.arange(0, 1.1, 0.1))
     ax2.set_xlabel("Orbital Phase [0=transit]")
     ax2.set_ylabel("Number of Observations")
 
