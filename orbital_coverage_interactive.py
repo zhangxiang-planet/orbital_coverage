@@ -468,7 +468,7 @@ else:
     sc = ax1.scatter(phases_segments, datetime_segments, marker='o')
     # fig.colorbar(sc, ax=ax1, label='Target Elevation (deg)')
     ax1.yaxis.set_major_locator(mdates.AutoDateLocator())
-    ax1.yaxis.set_major_formatter(mdates.DateFormatter("%y-%m-%d"))
+    ax1.yaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
     ax1.set_xlim(0, 1)
     ax1.set_ylabel("Time (UT)")
 
