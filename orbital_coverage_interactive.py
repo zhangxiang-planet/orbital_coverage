@@ -114,6 +114,9 @@ def calculate_orbital_phase_array(times, jd0, p_e, is_eccentric, eccen):
         # For circular orbits, directly use M to calculate phase, normalized to [0, 1)
         phases = (M % (2 * np.pi)) / (2 * np.pi)
     
+    # Ensure phase wraps between [0, 1) for all cases
+    phases = np.mod(phases, 1.0)
+    
     return phases
 
 ##################################
