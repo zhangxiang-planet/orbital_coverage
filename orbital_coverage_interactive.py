@@ -14,6 +14,7 @@ import argparse
 from astroquery.ipac.nexsci.nasa_exoplanet_archive import NasaExoplanetArchive
 import re
 import h5py
+from scipy.optimize import newton
 
 def extract_reference_name(column_value):
     # Convert the MaskedColumn value to string
@@ -74,11 +75,51 @@ def extract_freq_values(filename):
         
     return None, None
 
+def kepler_equation(E, M, e):
+    return E - e * np.sin(E) - M
+
+def solve_eccentric_anomaly(M, e):
+    # Newton-Raphson method to solve Kepler's equation for E
+    E_guess = M  # Initial guess for E is the mean anomaly itself
+    E = newton(kepler_equation, E_guess, args=(M, e))
+    return E
+
+def true_anomaly(M, e):
+    E = solve_eccentric_anomaly(M, e)
+    true_anom = 2 * np.arctan(np.sqrt((1 + e) / (1 - e)) * np.tan(E / 2))
+    return np.rad2deg(true_anom)  # Convert to degrees for convenience
+
+def calculate_orbital_phase_array(times, jd0, p_e, is_eccentric, eccen):
+    """
+    Calculates the orbital phase for an array of times.
+    
+    Parameters:
+    - times: array of times for which to calculate the orbital phase
+    - jd0: reference time (time of conjunction or time of periastron)
+    - p_e: orbital period
+    - is_eccentric: flag indicating if the orbit is eccentric
+    - eccen: eccentricity of the orbit
+    
+    Returns:
+    - Array of orbital phases
+    """
+    # Calculate mean anomaly M for all times
+    M = 2 * np.pi * (times - jd0) / p_e
+    
+    if is_eccentric:
+        # For eccentric orbits, convert M to true anomaly and then to phase
+        T_degrees = np.array([true_anomaly(m, eccen) for m in M])  # Convert each mean anomaly to true anomaly
+        phases = T_degrees / 360.0  # Normalize true anomaly to [0, 1)
+    else:
+        # For circular orbits, directly use M to calculate phase, normalized to [0, 1)
+        phases = (M % (2 * np.pi)) / (2 * np.pi)
+    
+    return phases
 
 ##################################
 
 # Parameters for target and telescope
-parser = argparse.ArgumentParser(description='For an exoplanet, this code provides the orbital phase coverage of existing NenuFAR/LOFAR observations, while predicting future observing windows to cover the entire orbital phase.')
+parser = argparse.ArgumentParser(description='For an exoplanet, this code provides the orbital phase coverage of existing NenuFAR/LOFAR observations, while predicting future observing windows to cover the entire orbital phase. For exoplanets with circular (e<0.1) orbits, orbital phase is calculated from transit midpoint; for eccentric orbits (e>=0.1), from periastron (True Anomaly).')
 parser.add_argument('-t', '--target', type=str, required=True, 
     help='Target name. Must be the same format as used in the NASA exoplanet archive, with spaces replaced with underscores (e.g. tau_boo_b).')
 parser.add_argument('-f', '--field', type=str, required=True, 
@@ -98,12 +139,14 @@ parser.add_argument('-p', '--period', type=float, default=0,
 parser.add_argument('-pe', '--perioderr', type=float, default=0, 
     help='Period Error of the exoplanet in days. Only used in manual mode. Default 0.')
 parser.add_argument('-j', '--jd', type=float, default=0, 
-    help='Time of Conjuction (Transit Midpoint) in JD. Only used in manual mode. Default 0.')
+    help='Time of Conjuction (Transit Midpoint) or Epoch of Periastron in JD. Only used in manual mode. Default 0.')
+parser.add_argument('-e', '--eccentric', type=float, default=0, 
+    help='Eccentricity of the exoplanet. Only used in manual mode. Default 0.')
 parser.add_argument('-pre', '--predict', type=float, default=30, 
     help='Predict length in days. Giving observing window for the target in next XX days. Default 30.')
 parser.add_argument('-d', '--date', type=str, default='NOW', 
     help='Start date of prediction. Format YYYY-MM-DD. Default the current date.')
-parser.add_argument('-e', '--elevation', type=float, default=40, 
+parser.add_argument('-ele', '--elevation', type=float, default=40, 
     help='Target elevation limit in degrees. Only give observing window with target elevation > XX degress. Default 40.')
 parser.add_argument('-s', '--sun', type=float, default=-18, 
     help='Sun elevation limit in degrees. Only give observing window with Sun elevation < XX degress. Default -18.')
@@ -169,10 +212,39 @@ if args.baddata == True:
 
 table = NasaExoplanetArchive.query_object(target_name.replace("_", " "))
 
-# Find the reference with smallest error in orbital period
-mask = np.logical_and(table['soltype'] == 'Published Confirmed', table['pl_tranmid']>0)
-small_err = np.nanmin(table[mask]['pl_orbpererr1'] - table[mask]['pl_orbpererr2'])
-best_reference = table[(table['pl_orbpererr1'] - table['pl_orbpererr2']) == small_err]
+# # Find the reference with smallest error in orbital period
+# mask = np.logical_and(table['soltype'] == 'Published Confirmed', table['pl_tranmid']>0)
+# small_err = np.nanmin(table[mask]['pl_orbpererr1'] - table[mask]['pl_orbpererr2'])
+# best_reference = table[(table['pl_orbpererr1'] - table['pl_orbpererr2']) == small_err]
+
+# Filter for Published Confirmed exoplanets
+confirmed_mask = table['soltype'] == 'Published Confirmed'
+confirmed_table = table[confirmed_mask]
+
+# Calculate the average eccentricity (excluding NaN values)
+eccentricity_values = confirmed_table['pl_orbeccen']
+average_eccentricity = np.nanmean(eccentricity_values)
+
+# Determine if the orbit is eccentric
+is_eccentric = average_eccentricity >= 0.1
+
+# Apply further filtering based on orbit type
+if is_eccentric:
+    # For eccentric orbits, ensure epoch of periastron is available
+    mask = ~np.isnan(confirmed_table['pl_orbtper'])
+else:
+    # For circular orbits, proceed with non-zero transit midpoint
+    mask = confirmed_table['pl_tranmid'] > 0
+
+# Apply the mask and find the reference with the smallest error in orbital period
+if np.any(mask):
+    filtered_table = confirmed_table[mask]
+    small_err = np.nanmin(filtered_table['pl_orbpererr1'] - filtered_table['pl_orbpererr2'])
+    best_reference_mask = (filtered_table['pl_orbpererr1'] - filtered_table['pl_orbpererr2']) == small_err
+    best_reference = filtered_table[best_reference_mask]
+    print("Best reference found.")
+else:
+    print("No exoplanets match the criteria.")
 
 reference = best_reference
 
@@ -188,7 +260,13 @@ else:
     
 p_e = float(reference['pl_orbper'].value[0])
 p_e_error = float(small_err.value / 2)
-jd0 = float(reference['pl_tranmid'].value[0])
+
+if is_eccentric:
+    jd0 = float(reference['pl_orbtper'].value[0])  # Epoch of periastron for eccentric orbits
+    eccen = float(reference['pl_orbeccen'].value[0])
+else:
+    jd0 = float(reference['pl_tranmid'].value[0])  # Transit midpoint for circular orbits
+    eccen = 0
 
 # summary file
 f = open(target_name + '_' + args.instrument + '_' + obs_mode + '_' + drive_mode + '_summary.txt', 'w')
@@ -200,31 +278,35 @@ if drive_mode == 'MANUAL':
     p_e = args.period
     p_e_error = args.perioderr
     jd0 = args.jd
+    eccen = args.eccentric
+    is_eccentric = eccen >= 0.1
     print("Code is running in MANUAL mode.")
     print("Reference Name:", extract_reference_name(reference['pl_refname']))  # Replace with actual column name if different
     # print("Publication Date:", reference['pl_pubdate'])
     print("Orbital Period:", p_e)  # Replace with actual column name if different
     print("Error in Orbital Period:", p_e_error)  # Replace with actual column name if different
-    print("Time of Conjuction (Transit Midpoint):", jd0)
+    jd0_description = "Time of Periastron:" if is_eccentric else "Time of Conjunction (Transit Midpoint):"
+    print(jd0_description, jd0)
 
     f.write("Code is running in MANUAL mode.\n")
     f.write("Reference Name: " + str(extract_reference_name(reference['pl_refname'])) + '\n')
     f.write("Orbital Period: " + str(p_e) + '\n')
     f.write("Error in Orbital Period: " + str(p_e_error) + '\n')
-    f.write("Time of Conjuction (Transit Midpoint): " + str(jd0) + '\n')
+    f.write(f"{jd0_description} {jd0}\n")
 else:
     print("Code is running in AUTO mode.")
     print("Reference Name:", extract_reference_name(reference['pl_refname']))  # Replace with actual column name if different
     # print("Publication Date:", reference['pl_pubdate'])
     print("Orbital Period:", p_e)  # Replace with actual column name if different
     print("Error in Orbital Period:", p_e_error)  # Replace with actual column name if different
-    print("Time of Conjuction (Transit Midpoint):", jd0)
+    jd0_description = "Time of Periastron:" if is_eccentric else "Time of Conjunction (Transit Midpoint):"
+    print(jd0_description, jd0)
 
     f.write("Code is running in AUTO mode.\n")
     f.write("Reference Name: " + str(extract_reference_name(reference['pl_refname'])) + '\n')
     f.write("Orbital Period: " + str(p_e) + '\n')
     f.write("Error in Orbital Period: " + str(p_e_error) + '\n')
-    f.write("Time of Conjuction (Transit Midpoint): " + str(jd0) + '\n')
+    f.write(f"{jd0_description} {jd0}\n")
 
 # Will lose phase coherence (10 percent of one orbit) by what time?
 esti_cut = float((p_e/p_e_error)*(0.1*p_e) + jd0)
@@ -305,8 +387,11 @@ t_starts = np.array(t_starts)
 t_ends = np.array(t_ends)
 
 # Compute phases of existing observations
-phases_observed_starts = ((t_starts - jd0) / p_e) % 1
-phases_observed_ends = ((t_ends - jd0) / p_e) % 1
+# phases_observed_starts = ((t_starts - jd0) / p_e) % 1
+# phases_observed_ends = ((t_ends - jd0) / p_e) % 1
+
+phases_observed_starts = calculate_orbital_phase_array(t_starts, jd0, p_e, is_eccentric, eccen)
+phases_observed_ends = calculate_orbital_phase_array(t_ends, jd0, p_e, is_eccentric, eccen)
 
 t_starts_utc = Time(t_starts, format='jd', scale='utc').iso
 t_ends_utc = Time(t_ends, format='jd', scale='utc').iso
@@ -330,7 +415,8 @@ else:
         all_segments.extend(segments)
 
     all_segments = np.array(all_segments)
-    phases_segments = ((all_segments - jd0) / p_e) % 1
+    # phases_segments = ((all_segments - jd0) / p_e) % 1
+    phases_segments = calculate_orbital_phase_array(all_segments, jd0, p_e, is_eccentric, eccen)
     datetime_segments = Time(all_segments, format='jd', scale='utc')
 
     if args.instrument == "LOFAR":
@@ -475,7 +561,7 @@ else:
     # Second plot
     ax2.bar(bin_edges[:-1], phase_coverage, width=1/num_bins, align='edge')
     ax2.set_xticks(np.arange(0, 1.1, 0.1))
-    ax2.set_xlabel("Orbital Phase [0=transit]")
+    ax2.set_xlabel("Orbital Phase")
     ax2.set_ylabel("Number of Obs")
 
     # Adjust layout and save
@@ -496,7 +582,13 @@ end_time = start_time + timedelta(days=predict_length)
 delta_t = timedelta(minutes=10)  
 times = Time([start_time + i*delta_t for i in range(int((end_time - start_time).sec/delta_t.seconds))])
 
-phases = ((times.jd - jd0) / p_e) % 1
+# phases = ((times.jd - jd0) / p_e) % 1
+
+# Convert astropy Time array to a numpy array of Julian Dates for phase calculation
+times_jd = times.jd
+
+# Calculate phases for all times, taking into account eccentricity
+phases = calculate_orbital_phase_array(times_jd, jd0, p_e, is_eccentric, eccen)
 
 times_all = times 
 phases_all = phases
@@ -584,8 +676,18 @@ long_clusters_mask = cluster_durations > args.window
 
 long_clusters_start = cluster_start[long_clusters_mask]
 long_clusters_end = cluster_end[long_clusters_mask]
-long_clusters_start_phase = ((long_clusters_start.jd - jd0) / p_e) % 1
-long_clusters_end_phase = ((long_clusters_end.jd - jd0) / p_e) % 1
+
+# long_clusters_start_phase = ((long_clusters_start.jd - jd0) / p_e) % 1
+# long_clusters_end_phase = ((long_clusters_end.jd - jd0) / p_e) % 1
+
+# Convert astropy Time objects to numpy arrays of Julian Dates
+long_clusters_start_jd = long_clusters_start.jd
+long_clusters_end_jd = long_clusters_end.jd
+
+# Calculate phases for the start and end times of long clusters, taking into account eccentricity
+long_clusters_start_phase = calculate_orbital_phase_array(long_clusters_start_jd, jd0, p_e, is_eccentric, eccen)
+long_clusters_end_phase = calculate_orbital_phase_array(long_clusters_end_jd, jd0, p_e, is_eccentric, eccen)
+
 
 f.write('\n-----------\n')
 f.write("This section gives summary of observation windows in next 30 days.\nColumns: Observation start time (JD), Observation end time (JD), Orbital Phase at start time, Orbital Phase at end time, Observation start time (UTC), Observation end time (UTC)\n\n")
