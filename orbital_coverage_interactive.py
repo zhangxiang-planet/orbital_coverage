@@ -229,7 +229,7 @@ eccentricity_values = confirmed_table['pl_orbeccen']
 average_eccentricity = np.nanmean(eccentricity_values)
 
 # Determine if the orbit is eccentric
-is_eccentric = average_eccentricity >= 0.001
+is_eccentric = average_eccentricity >= 0.1
 
 # Apply further filtering based on orbit type
 if is_eccentric:
@@ -238,6 +238,9 @@ if is_eccentric:
 else:
     # For circular orbits, proceed with non-zero transit midpoint
     mask = confirmed_table['pl_tranmid'] > 0
+
+if np.sum(mask) == 0:
+    mask = ~np.isnan(confirmed_table['pl_orbper'])
 
 # Apply the mask and find the reference with the smallest error in orbital period
 if np.any(mask):
