@@ -268,14 +268,14 @@ else:
     print('Error: Observing instrument can only be NENUFAR or LOFAR.')
     exit(1)
     
-p_e = float(reference['pl_orbper'].value[0])
+p_e = float(reference['pl_orbper'].value)
 p_e_error = float(small_err.value / 2)
 
 if is_eccentric:
-    jd0 = float(reference['pl_orbtper'].value[0])  # Epoch of periastron for eccentric orbits
-    eccen = float(reference['pl_orbeccen'].value[0])
+    jd0 = float(reference['pl_orbtper'].value)  # Epoch of periastron for eccentric orbits
+    eccen = float(reference['pl_orbeccen'].value)
 else:
-    jd0 = float(reference['pl_tranmid'].value[0])  # Transit midpoint for circular orbits
+    jd0 = float(reference['pl_tranmid'].value)  # Transit midpoint for circular orbits
     eccen = 0
 
 # summary file
