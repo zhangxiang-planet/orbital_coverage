@@ -229,7 +229,7 @@ eccentricity_values = confirmed_table['pl_orbeccen']
 average_eccentricity = np.nanmean(eccentricity_values)
 
 # Determine if the orbit is eccentric
-is_eccentric = average_eccentricity >= 0.1
+is_eccentric = average_eccentricity >= 0.001
 
 # Apply further filtering based on orbit type
 if is_eccentric:
