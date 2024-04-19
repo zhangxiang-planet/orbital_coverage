@@ -254,6 +254,10 @@ else:
 
 reference = best_reference
 
+if len(reference) > 1:
+    print("Multiple references found. Using the first one.")
+    reference = reference[0]
+
 target = SkyCoord(reference['ra'], reference['dec'])
 
 if args.instrument == "NENUFAR":
