@@ -1,0 +1,153 @@
+startTime, stopTime, KP name, comment
+2023-11-01 15:00:00,2023-11-01 19:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-01 19:00:00,2023-11-01 19:12:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-01 19:12:00,2023-11-01 23:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-01 23:00:00,2023-11-02 00:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 00:00:00,2023-11-02 02:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 02:00:00,2023-11-02 04:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 04:00:00,2023-11-02 06:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-02 06:00:00,2023-11-02 07:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 07:00:00,2023-11-02 08:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 08:00:00,2023-11-02 10:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-02 10:00:00,2023-11-02 11:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 11:00:00,2023-11-02 12:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 12:00:00,2023-11-02 14:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 14:00:00,2023-11-02 15:00:00,ES00 Debug,Test nouveau service Backend
+2023-11-02 15:00:00,2023-11-02 18:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-02 18:00:00,2023-11-02 19:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 19:00:00,2023-11-02 20:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-02 20:00:00,2023-11-02 21:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 21:00:00,2023-11-02 22:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 22:00:00,2023-11-02 23:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-02 23:00:00,2023-11-02 23:16:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-02 23:16:00,2023-11-02 23:44:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-02 23:44:00,2023-11-03 00:12:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-03 00:12:00,2023-11-03 00:40:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-03 00:40:00,2023-11-03 01:08:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-03 01:08:00,2023-11-03 01:36:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-03 01:36:00,2023-11-03 02:04:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-03 02:04:00,2023-11-03 02:32:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-03 02:32:00,2023-11-03 03:00:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-03 03:15:00,2023-11-03 05:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-03 05:00:00,2023-11-03 09:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-03 09:00:00,2023-11-03 10:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-03 10:00:00,2023-11-03 11:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-03 11:00:00,2023-11-03 13:00:00,LT12 Radio Gamma,VIR_A DUMP
+2023-11-03 15:00:00,2023-11-03 17:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-03 17:00:00,2023-11-03 20:00:00,LT10 Radio recombination lines,Cleanup planning J-6
+2023-11-03 20:00:00,2023-11-03 20:10:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-03 20:10:00,2023-11-04 00:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-04 00:00:00,2023-11-04 03:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-04 03:00:00,2023-11-04 05:00:00,LT10 Radio recombination lines,Cleanup planning J-6
+2023-11-04 05:00:00,2023-11-04 09:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-04 09:00:00,2023-11-04 18:30:00,LT02 Exoplanets and stars,KP booking
+2023-11-04 18:30:00,2023-11-04 18:42:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-04 18:42:00,2023-11-04 22:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-04 22:00:00,2023-11-05 00:00:00,LT10 Radio recombination lines,Cleanup planning J-6
+2023-11-05 00:00:00,2023-11-05 01:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-05 01:00:00,2023-11-05 03:00:00,LT10 Radio recombination lines,Cleanup planning J-6
+2023-11-05 03:00:00,2023-11-05 06:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-05 06:00:00,2023-11-05 10:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-05 10:00:00,2023-11-05 11:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-05 15:00:00,2023-11-05 18:00:00,LT10 Radio recombination lines,Cleanup planning J-6
+2023-11-05 18:00:00,2023-11-05 22:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-05 22:00:00,2023-11-05 23:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-05 23:00:00,2023-11-05 23:16:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-05 23:16:00,2023-11-05 23:44:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-05 23:44:00,2023-11-06 00:12:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-06 00:12:00,2023-11-06 00:40:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-06 00:40:00,2023-11-06 01:08:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-06 01:08:00,2023-11-06 01:36:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-06 01:36:00,2023-11-06 02:04:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-06 02:04:00,2023-11-06 02:32:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-06 02:32:00,2023-11-06 03:00:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-06 03:00:00,2023-11-06 05:00:00,LT10 Radio recombination lines,Cleanup planning J-6
+2023-11-06 05:00:00,2023-11-06 06:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-06 06:00:00,2023-11-06 10:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-06 10:00:00,2023-11-06 11:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-06 15:00:00,2023-11-06 18:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-06 18:00:00,2023-11-06 22:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-06 22:00:00,2023-11-06 22:12:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-06 22:12:00,2023-11-07 01:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-07 01:00:00,2023-11-07 03:00:00,LT10 Radio recombination lines,Cleanup planning J-6
+2023-11-07 03:00:00,2023-11-07 05:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-07 06:00:00,2023-11-07 10:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-07 19:00:00,2023-11-07 20:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-07 20:00:00,2023-11-08 00:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-08 01:00:00,2023-11-08 03:00:00,LT10 Radio recombination lines,Cleanup planning J-6
+2023-11-08 03:00:00,2023-11-08 07:00:00,LT05 Fast Radio Bursts,Cleanup planning J-6
+2023-11-08 10:00:00,2023-11-08 11:00:00,LT03 Pulsars,Cleanup planning J-6
+2023-11-08 18:30:00,2023-11-08 18:42:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-08 18:42:00,2023-11-08 23:00:00,LT02 Exoplanets and stars,Cleanup planning J-6
+2023-11-08 23:00:00,2023-11-08 23:16:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-08 23:16:00,2023-11-08 23:44:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-08 23:44:00,2023-11-09 00:12:00,RP1B NenuFAR Low-Frequency Sky Survey,Cleanup planning J-6
+2023-11-09 03:00:00,2023-11-09 07:00:00,LT05 Fast Radio Bursts,NenuFAR booking
+2023-11-09 10:00:00,2023-11-10 14:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-10 17:00:00,2023-11-11 05:00:00,LT01 Cosmic Dawn,NenuFAR booking
+2023-11-11 05:00:00,2023-11-11 10:30:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-11 20:00:00,2023-11-12 00:00:00,LT05 Fast Radio Bursts,NenuFAR booking
+2023-11-12 00:00:00,2023-11-12 03:00:00,LT12 Radio Gamma,NenuFAR booking
+2023-11-12 03:00:00,2023-11-12 10:30:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-12 18:30:00,2023-11-12 23:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-12 23:00:00,2023-11-13 04:00:00,LT09 Galaxies,NenuFAR booking
+2023-11-13 04:00:00,2023-11-13 10:15:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-13 18:00:00,2023-11-13 22:00:00,LT06 Planetary Lightning,NenuFAR booking
+2023-11-13 23:00:00,2023-11-14 03:00:00,RP1B NenuFAR Low-Frequency Sky Survey,NenuFAR booking
+2023-11-14 03:00:00,2023-11-14 10:15:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-14 18:00:00,2023-11-14 21:00:00,LT10 Radio recombination lines,Transfer from LT12
+2023-11-14 23:00:00,2023-11-15 04:00:00,LT09 Galaxies,NenuFAR booking
+2023-11-15 04:00:00,2023-11-15 10:00:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-15 15:30:00,2023-11-16 05:00:00,LT07 Joint Jupiter studies,NenuFAR booking
+2023-11-16 06:00:00,2023-11-16 07:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-16 07:00:00,2023-11-16 10:00:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-16 10:00:00,2023-11-16 14:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-16 17:00:00,2023-11-16 18:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-16 20:00:00,2023-11-16 21:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-16 21:00:00,2023-11-17 01:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-17 01:00:00,2023-11-17 03:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-17 03:00:00,2023-11-17 10:00:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-17 15:00:00,2023-11-17 18:00:00,LT10 Radio recombination lines,Transfer from LT12
+2023-11-17 18:00:00,2023-11-17 23:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-17 23:00:00,2023-11-18 03:00:00,RP1B NenuFAR Low-Frequency Sky Survey,NenuFAR booking
+2023-11-18 03:00:00,2023-11-18 10:00:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-18 15:30:00,2023-11-19 05:00:00,LT07 Joint Jupiter studies,NenuFAR booking
+2023-11-19 05:00:00,2023-11-19 09:45:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-19 17:00:00,2023-11-20 05:00:00,LT01 Cosmic Dawn,NenuFAR booking
+2023-11-20 05:00:00,2023-11-20 09:45:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-20 18:00:00,2023-11-21 00:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-21 00:00:00,2023-11-21 03:00:00,LT12 Radio Gamma,NenuFAR booking
+2023-11-21 03:00:00,2023-11-21 09:45:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-21 11:00:00,2023-11-21 12:00:00,ES00 Debug,test NCU restart
+2023-11-21 18:00:00,2023-11-21 23:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-21 23:00:00,2023-11-22 03:00:00,RP1B NenuFAR Low-Frequency Sky Survey,NenuFAR booking
+2023-11-22 03:00:00,2023-11-22 09:30:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-22 18:00:00,2023-11-23 00:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-23 00:00:00,2023-11-23 03:00:00,LT12 Radio Gamma,NenuFAR booking
+2023-11-23 03:00:00,2023-11-23 09:00:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-23 09:00:00,2023-11-23 14:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-23 18:00:00,2023-11-23 23:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-23 23:00:00,2023-11-24 03:00:00,RP1B NenuFAR Low-Frequency Sky Survey,NenuFAR booking
+2023-11-24 03:00:00,2023-11-24 09:30:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-24 15:00:00,2023-11-24 18:00:00,LT10 Radio recombination lines,Transfer from LT12
+2023-11-24 18:00:00,2023-11-24 23:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-24 23:00:00,2023-11-25 04:00:00,LT09 Galaxies,NenuFAR booking
+2023-11-25 04:00:00,2023-11-25 09:30:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-25 18:00:00,2023-11-26 00:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-26 00:00:00,2023-11-26 04:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-26 04:00:00,2023-11-26 09:30:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-26 18:00:00,2023-11-26 23:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-26 23:00:00,2023-11-27 03:00:00,RP1B NenuFAR Low-Frequency Sky Survey,NenuFAR booking
+2023-11-27 03:00:00,2023-11-27 09:15:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-27 18:00:00,2023-11-27 21:00:00,LT10 Radio recombination lines,Transfer from LT12
+2023-11-27 23:00:00,2023-11-28 04:00:00,LT09 Galaxies,NenuFAR booking
+2023-11-28 04:00:00,2023-11-28 06:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-28 06:00:00,2023-11-28 09:15:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-28 18:00:00,2023-11-29 00:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-29 00:00:00,2023-11-29 06:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-29 06:00:00,2023-11-29 09:15:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-29 18:00:00,2023-11-29 23:00:00,LT02 Exoplanets and stars,KP booking
+2023-11-29 23:00:00,2023-11-30 03:00:00,RP1B NenuFAR Low-Frequency Sky Survey,NenuFAR booking
+2023-11-30 03:00:00,2023-11-30 09:00:00,LT02 Exoplanets and stars,NenuFAR booking
+2023-11-30 10:00:00,2023-11-30 14:00:00,LT03 Pulsars,NenuFAR booking
+2023-11-30 18:00:00,2023-12-01 00:00:00,LT02 Exoplanets and stars,KP booking
